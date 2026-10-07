@@ -87,12 +87,12 @@ async function reload() {
 }
 function openEditor(config, version) {
   editingVersion = version; $('metadata').value = JSON.stringify(config, null, 2); $('editor-error').textContent = '';
-  $('history').replaceChildren(new Option('Current / proposed metadata', ''));
+  $('history').replaceChildren(new Option('Current metadata', ''));
   workspace.revisions.forEach(r => $('history').add(new Option(`v${r.version} · ${r.label}`, r.version)));
   $('editor').showModal();
 }
 $('edit').onclick = () => openEditor(workspace.config, workspace.version);
-$('history').onchange = async () => {try {if ($('history').value) $('metadata').value = JSON.stringify(await api('revision', $('history').value), null, 2);} catch (e) {$('editor-error').textContent = e.message;}};
+$('history').onchange = async () => {try {$('metadata').value = JSON.stringify($('history').value ? await api('revision', $('history').value) : workspace.config, null, 2);} catch (e) {$('editor-error').textContent = e.message;}};
 $('save').onclick = async () => {
   try {await api('workspace', '', 'POST', {config: JSON.parse($('metadata').value), version: editingVersion});
     $('editor').close();
