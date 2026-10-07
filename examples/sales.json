@@ -1,0 +1,78 @@
+{
+  "config": {
+    "title": "Fieldwork CRM",
+    "objects": [
+      {"id": "companies", "label": "Companies", "fields": [
+        {"id": "name", "label": "Company", "type": "text", "required": true, "unique": true},
+        {"id": "industry", "label": "Industry", "type": "text"},
+        {"id": "contact", "label": "Contact", "type": "text"}
+      ]},
+      {"id": "sales", "label": "Sales", "fields": [
+        {"id": "name", "label": "Sale", "type": "text", "required": true},
+        {"id": "amount", "label": "Amount (USD)", "type": "number", "required": true},
+        {"id": "date", "label": "Date", "type": "date", "required": true},
+        {"id": "status", "label": "Status", "type": "select", "required": true, "options": ["Paid", "Pending"]}
+      ]},
+      {"id": "opportunities", "label": "Opportunities", "fields": [
+        {"id": "name", "label": "Opportunity", "type": "text", "required": true},
+        {"id": "amount", "label": "Value (USD)", "type": "number", "required": true},
+        {"id": "stage", "label": "Stage", "type": "select", "required": true, "options": ["Discovery", "Proposal", "Negotiation", "Won", "Lost"]},
+        {"id": "close_date", "label": "Expected close", "type": "date"}
+      ]}
+    ],
+    "relations": [
+      {"id": "company_sales", "label": "Company sales", "from": "companies", "to": "sales", "cardinality": "one-to-many"},
+      {"id": "company_opportunities", "label": "Company opportunities", "from": "companies", "to": "opportunities", "cardinality": "many-to-many"}
+    ],
+    "queries": [
+      {"id": "recent_sales", "object": "sales", "fields": ["name", "amount", "date", "status"], "filters": [{"field": "date", "op": "last_days", "value": 30}], "sort": "date", "descending": true, "aggregate": "rows"},
+      {"id": "sales_total", "object": "sales", "fields": ["amount"], "filters": [{"field": "date", "op": "last_days", "value": 30}], "aggregate": "sum", "measure": "amount"},
+      {"id": "pipeline_total", "object": "opportunities", "fields": ["amount"], "filters": [{"field": "stage", "op": "ne", "value": "Won"}, {"field": "stage", "op": "ne", "value": "Lost"}], "aggregate": "sum", "measure": "amount"},
+      {"id": "opportunity_count", "object": "opportunities", "fields": ["name"], "filters": [{"field": "stage", "op": "ne", "value": "Won"}, {"field": "stage", "op": "ne", "value": "Lost"}], "aggregate": "count"},
+      {"id": "company_count", "object": "companies", "fields": ["name"], "filters": [], "aggregate": "count"},
+      {"id": "open_opportunities", "object": "opportunities", "fields": ["name", "amount", "stage", "close_date"], "filters": [{"field": "stage", "op": "ne", "value": "Won"}, {"field": "stage", "op": "ne", "value": "Lost"}], "sort": "amount", "descending": true, "aggregate": "rows"},
+      {"id": "pipeline_stages", "object": "opportunities", "fields": ["stage", "amount"], "filters": [{"field": "stage", "op": "ne", "value": "Won"}, {"field": "stage", "op": "ne", "value": "Lost"}], "aggregate": "sum", "measure": "amount", "groupBy": "stage"}
+    ],
+    "screens": [{"id": "overview", "title": "Sales overview", "widgets": [
+      {"type": "metric", "title": "Sales · last 30 days (USD)", "query": "sales_total", "width": 3},
+      {"type": "metric", "title": "Open pipeline (USD)", "query": "pipeline_total", "width": 3},
+      {"type": "metric", "title": "Open opportunities", "query": "opportunity_count", "width": 3},
+      {"type": "metric", "title": "Companies in your network", "query": "company_count", "width": 3},
+      {"type": "table", "title": "Recent sales", "query": "recent_sales", "width": 8},
+      {"type": "bar", "title": "Pipeline by stage (USD)", "query": "pipeline_stages", "width": 4},
+      {"type": "table", "title": "Open opportunities", "query": "open_opportunities", "width": 12}
+    ]}]
+  },
+  "records": [
+    {"key": "acme", "object": "companies", "data": {"name": "Acme Studio", "industry": "Design", "contact": "Maya Chen"}},
+    {"key": "north", "object": "companies", "data": {"name": "Northstar Labs", "industry": "Research", "contact": "Sam Rivera"}},
+    {"key": "olive", "object": "companies", "data": {"name": "Olive & Co.", "industry": "Retail", "contact": "Avery Brooks"}},
+    {"key": "cedar", "object": "companies", "data": {"name": "Cedar Works", "industry": "Manufacturing", "contact": "Jordan Lee"}},
+    {"key": "s1", "object": "sales", "data": {"name": "Acme · annual workspace", "amount": 12400, "date": "@today-1", "status": "Paid"}},
+    {"key": "s2", "object": "sales", "data": {"name": "Northstar · team expansion", "amount": 8600, "date": "@today-3", "status": "Paid"}},
+    {"key": "s3", "object": "sales", "data": {"name": "Olive · onboarding package", "amount": 4200, "date": "@today-5", "status": "Pending"}},
+    {"key": "s4", "object": "sales", "data": {"name": "Cedar · platform renewal", "amount": 9800, "date": "@today-9", "status": "Paid"}},
+    {"key": "s5", "object": "sales", "data": {"name": "Acme · reporting add-on", "amount": 3600, "date": "@today-12", "status": "Paid"}},
+    {"key": "s6", "object": "sales", "data": {"name": "Northstar · data migration", "amount": 6000, "date": "@today-18", "status": "Pending"}},
+    {"key": "s7", "object": "sales", "data": {"name": "Cedar · previous quarter", "amount": 18000, "date": "@today-65", "status": "Paid"}},
+    {"key": "o1", "object": "opportunities", "data": {"name": "Northstar · enterprise rollout", "amount": 48000, "stage": "Negotiation", "close_date": "@today-0"}},
+    {"key": "o2", "object": "opportunities", "data": {"name": "Cedar · regional expansion", "amount": 32000, "stage": "Proposal"}},
+    {"key": "o3", "object": "opportunities", "data": {"name": "Olive · commerce integration", "amount": 16500, "stage": "Discovery"}},
+    {"key": "o4", "object": "opportunities", "data": {"name": "Acme · partner workspace", "amount": 24000, "stage": "Proposal"}},
+    {"key": "o5", "object": "opportunities", "data": {"name": "Northstar · archive project", "amount": 8000, "stage": "Won"}}
+  ],
+  "links": [
+    {"relation": "company_sales", "source": "acme", "target": "s1"},
+    {"relation": "company_sales", "source": "north", "target": "s2"},
+    {"relation": "company_sales", "source": "olive", "target": "s3"},
+    {"relation": "company_sales", "source": "cedar", "target": "s4"},
+    {"relation": "company_sales", "source": "acme", "target": "s5"},
+    {"relation": "company_sales", "source": "north", "target": "s6"},
+    {"relation": "company_sales", "source": "cedar", "target": "s7"},
+    {"relation": "company_opportunities", "source": "north", "target": "o1"},
+    {"relation": "company_opportunities", "source": "cedar", "target": "o2"},
+    {"relation": "company_opportunities", "source": "olive", "target": "o3"},
+    {"relation": "company_opportunities", "source": "acme", "target": "o4"},
+    {"relation": "company_opportunities", "source": "cedar", "target": "o4"}
+  ]
+}

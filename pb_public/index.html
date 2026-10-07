@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>On the fly — a workspace that takes shape</title>
+  <link rel="stylesheet" href="/vendor/sdk.css"><link rel="stylesheet" href="/vendor/helper.css">
+  <link rel="stylesheet" href="/vendor/iconfont.css"><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">↗</span> on the fly<span class="lab">LAB</span></a>
+    <div class="workspace-label">YOUR WORKSPACE</div><div id="workspace-name"></div>
+    <nav id="navigation" aria-label="Workspace navigation"></nav>
+    <div class="sidebar-footer"><span class="live-dot"></span> Local workspace<br><small>PocketBase + AMIS · no sign-in</small></div>
+  </aside>
+  <main>
+    <header><div><div class="eyebrow">A WORKSPACE THAT TAKES SHAPE</div><h1 id="page-title">Start with an idea.</h1></div>
+      <button id="edit" class="secondary">Edit metadata</button></header>
+    <section class="builder" aria-label="Build or customize">
+      <div class="builder-heading"><span>✦ Build something new. Or make it yours.</span><span id="model-status" class="pill"></span></div>
+      <form id="prompt-form"><label class="sr-only" for="prompt">Describe your app or change</label><textarea id="prompt" rows="2" placeholder="Draw me a dashboard with recent sales and opportunities…" required maxlength="4000"></textarea><button id="build" type="submit">Build with AI ↗</button></form>
+      <div class="prompt-examples"><button type="button" data-prompt="Draw me a dashboard with recent sales from the last 30 days and open opportunities. Include total sales, total pipeline value, opportunities by stage and tables.">Sales dashboard</button><button type="button" data-prompt="Create an inventory app with products, suppliers, stock quantities and reorder levels. Link products and suppliers many-to-many. Add a products table and total product count.">Inventory tracker</button><button type="button" data-prompt="Update the dashboard: put opportunities first, show sales from the last 7 days, and use full-width tables. Preserve existing data and objects.">Make a change</button></div>
+    </section>
+    <div class="view-bar"><span id="view-note">Your objects, queries and screens are saved as metadata.</span><div><button id="customize" class="text-button" hidden>Customize view</button><button id="refresh" class="text-button">↻ Refresh</button><span id="revision" class="pill">v0</span></div></div>
+    <div id="notice" role="status" aria-live="polite"></div>
+    <section id="empty" hidden><div class="empty-icon">⌘</div><h2>Your next app starts here.</h2><p>Describe a workspace above, or explore a sales example.<br>Every table, card and chart comes from saved metadata.</p><button id="example">Explore sales example ↗</button><small>The example loads metadata and sample records. No model call.</small></section>
+    <section id="canvas" aria-label="Generated workspace"></section>
+    <footer><span><span class="live-dot"></span> Saved views run on data. AI only builds.</span><span id="proof">0 model calls this session</span></footer>
+  </main>
+  <dialog id="editor"><form method="dialog" class="dialog-heading"><h2>Workspace metadata</h2><button class="close" aria-label="Close">×</button></form><p>Change objects, retrieval or layout. Saving creates a version; existing data is validated first.</p><label for="history">Load a saved version</label><select id="history"></select><label class="sr-only" for="metadata">Workspace JSON</label><textarea id="metadata" spellcheck="false"></textarea><p id="editor-error" role="alert"></p><button id="save">Save version</button></dialog>
+  <dialog id="layout"><form method="dialog" class="dialog-heading"><h2>Customize this view</h2><button class="close" aria-label="Close">×</button></form><p>Reorder widgets, change widths and edit the data query. Changes create a saved version.</p><div id="layout-controls"></div><p id="layout-error" role="alert"></p><button id="save-layout">Save layout & queries</button></dialog>
+  <script src="/vendor/sdk.js"></script><script src="/app.js"></script>
+</body>
+</html>

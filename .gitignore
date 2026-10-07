@@ -1,0 +1,9 @@
+node_modules/
+.tools/
+pb_data/
+pb_public/vendor/
+.env
+output/
+.playwright-cli/
+.DS_Store
+*.log

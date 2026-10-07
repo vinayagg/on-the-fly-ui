@@ -1,0 +1,17 @@
+{
+  "name": "on-the-fly-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prompt to metadata. Saved applications run without AI.",
+  "license": "MIT",
+  "scripts": {
+    "setup": "python3 scripts/setup.py",
+    "start": "node --env-file-if-exists=.env scripts/start.mjs",
+    "test": "node --test test/integration.mjs",
+    "count": "python3 scripts/count.py"
+  },
+  "dependencies": {
+    "ajv": "8.17.1",
+    "amis": "6.13.0"
+  }
+}

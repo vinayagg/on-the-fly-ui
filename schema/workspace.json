@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object", "additionalProperties": false,
+  "required": ["title", "objects", "relations", "queries", "screens"],
+  "properties": {
+    "title": {"$ref": "#/definitions/label"},
+    "objects": {"type": "array", "maxItems": 30, "items": {"$ref": "#/definitions/object"}},
+    "relations": {"type": "array", "maxItems": 60, "items": {"$ref": "#/definitions/relation"}},
+    "queries": {"type": "array", "maxItems": 100, "items": {"$ref": "#/definitions/query"}},
+    "screens": {"type": "array", "maxItems": 30, "items": {"$ref": "#/definitions/screen"}}
+  },
+  "definitions": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,39}$", "not": {"enum": ["id", "constructor", "prototype", "__proto__", "items", "total", "value", "label", "then"]}},
+    "label": {"type": "string", "minLength": 1, "maxLength": 100, "pattern": "^[^<>$]*$"},
+    "field": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label", "type"],
+      "properties": {
+        "id": {"$ref": "#/definitions/id"}, "label": {"$ref": "#/definitions/label"},
+        "type": {"enum": ["text", "number", "date", "boolean", "select"]},
+        "required": {"type": "boolean"}, "unique": {"type": "boolean"},
+        "options": {"type": "array", "minItems": 1, "maxItems": 30, "uniqueItems": true, "items": {"$ref": "#/definitions/label"}}
+      }
+    },
+    "object": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label", "fields"],
+      "properties": {
+        "id": {"$ref": "#/definitions/id"}, "label": {"$ref": "#/definitions/label"},
+        "fields": {"type": "array", "minItems": 1, "maxItems": 40, "items": {"$ref": "#/definitions/field"}}
+      }
+    },
+    "relation": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label", "from", "to", "cardinality"],
+      "properties": {
+        "id": {"$ref": "#/definitions/id"}, "label": {"$ref": "#/definitions/label"},
+        "from": {"$ref": "#/definitions/id"}, "to": {"$ref": "#/definitions/id"},
+        "cardinality": {"enum": ["one-to-many", "many-to-many"]}
+      }
+    },
+    "filter": {
+      "type": "object", "additionalProperties": false, "required": ["field", "op", "value"],
+      "properties": {
+        "field": {"$ref": "#/definitions/id"}, "op": {"enum": ["eq", "ne", "contains", "gte", "lte", "last_days"]},
+        "value": {"type": ["string", "number", "boolean"], "maxLength": 1000}
+      }
+    },
+    "query": {
+      "type": "object", "additionalProperties": false, "required": ["id", "object", "fields", "filters", "aggregate"],
+      "properties": {
+        "id": {"$ref": "#/definitions/id"}, "object": {"$ref": "#/definitions/id"},
+        "fields": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/definitions/id"}},
+        "filters": {"type": "array", "maxItems": 10, "items": {"$ref": "#/definitions/filter"}},
+        "sort": {"$ref": "#/definitions/id"}, "descending": {"type": "boolean"},
+        "aggregate": {"enum": ["rows", "count", "sum"]}, "measure": {"$ref": "#/definitions/id"},
+        "groupBy": {"$ref": "#/definitions/id"},
+        "related": {
+          "type": "object", "additionalProperties": false, "required": ["relation", "record"],
+          "properties": {"relation": {"$ref": "#/definitions/id"}, "record": {"type": "string", "pattern": "^[a-z0-9]{15}$"}}
+        }
+      }
+    },
+    "widget": {
+      "type": "object", "additionalProperties": false, "required": ["type", "title", "query", "width"],
+      "properties": {
+        "type": {"enum": ["table", "metric", "bar"]}, "title": {"$ref": "#/definitions/label"},
+        "query": {"$ref": "#/definitions/id"}, "width": {"enum": [3, 4, 6, 8, 12]}
+      }
+    },
+    "screen": {
+      "type": "object", "additionalProperties": false, "required": ["id", "title", "widgets"],
+      "properties": {
+        "id": {"$ref": "#/definitions/id"}, "title": {"$ref": "#/definitions/label"},
+        "widgets": {"type": "array", "minItems": 1, "maxItems": 16, "items": {"$ref": "#/definitions/widget"}}
+      }
+    }
+  }
+}

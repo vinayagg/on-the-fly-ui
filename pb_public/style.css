@@ -1,0 +1,102 @@
+:root {font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #253a30; background: #f6f7f3; font-size: 14px; --primary: #395e48; --primary-onHover: #284a36; --primary-onActive: #284a36;}
+* {box-sizing: border-box;}
+body {margin: 0;}
+button, input, textarea, select {font: inherit;}
+button {cursor: pointer; border: 0; border-radius: 7px; padding: 11px 18px; background: #395e48; color: white; font-weight: 550;}
+button:disabled {opacity: .55; cursor: wait;}
+button:focus-visible, a:focus-visible {outline: 3px solid #9dbc77; outline-offset: 3px;}
+.sidebar {position: fixed; inset: 0 auto 0 0; width: 230px; background: #eef1e9; border-right: 1px solid #dce2d8; padding: 32px 22px; display: flex; flex-direction: column;}
+.brand {display: flex; align-items: center; gap: 9px; font-size: 22px; color: #243c2e; text-decoration: none; font-weight: 650; letter-spacing: -1px;}
+.brand-mark {background: #395e48; color: #edf4d9; border-radius: 8px; width: 30px; height: 30px; text-align: center; font-size: 25px;}
+.lab {font-size: 8px; letter-spacing: 1px; background: #dce3d4; padding: 3px 4px; border-radius: 3px;}
+.workspace-label,.nav-heading,.eyebrow {font-size: 10px; letter-spacing: 1.6px; font-weight: 650; color: #71816d;}
+.workspace-label {margin-top: 45px;}
+#workspace-name {font-size: 14px; margin: 8px 0 18px; font-weight: 550;}
+#navigation {overflow: auto; margin: 0 -8px;}
+.nav-heading {padding: 21px 9px 9px;}
+nav button {width: 100%; background: none; text-align: left; color: #627160; padding: 10px 12px; font-size: 13px; font-weight: 450; margin-bottom: 3px;}
+nav button.selected {background: #dce6d4; color: #294931; font-weight: 650;}
+nav button:hover {background: #e2e9dc;}
+.sidebar-footer {margin-top: auto; padding-top: 25px; color: #60735e; font-size: 12px; line-height: 2;}
+.sidebar-footer small {font-size: 10px; color: #85917f;}
+main {margin-left: 230px; max-width: 1900px; padding: 39px 42px 22px;}
+header {display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;}
+h1 {font-family: Georgia, serif; font-size: 34px; line-height: 1.25; font-weight: 400; letter-spacing: -.7px; margin: 10px 0 0;}
+h2 {font-weight: 550;}
+.secondary {background: transparent; color: #435d45; border: 1px solid #d6dfd1; font-size: 12px;}
+.builder {padding: 21px 23px 17px; background: #fff; border: 1px solid #dce2d7; border-radius: 12px; box-shadow: 0 2px 5px #23332003;}
+.builder-heading {display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13px; font-weight: 550;}
+.pill {display: inline-block; font-size: 10px; padding: 5px 9px; border: 1px solid #dfe5d9; border-radius: 20px; color: #73806c; font-weight: 500; white-space: nowrap;}
+#prompt-form {display: flex; gap: 12px; align-items: center;}
+#prompt {resize: vertical; flex: 1; min-height: 53px; border: none; outline-color: #9eae90; background: #f8f9f5; border-radius: 7px; padding: 12px; color: #354c3b;}
+#prompt::placeholder {color: #9aa392;}
+.prompt-examples {display: flex; gap: 15px; margin-top: 13px;}
+.prompt-examples button {background: none; color: #7a8971; padding: 0; font-size: 11px; font-weight: 400;}
+.prompt-examples button:hover {color: #294d33; text-decoration: underline;}
+.view-bar {display: flex; justify-content: space-between; align-items: center; margin: 23px 0 17px; font-size: 12px; color: #89927f;}
+.view-bar>div {display: flex; align-items: center; gap: 10px;}
+.text-button {background: none; color: #637a59; padding: 5px; font-size: 11px;}
+.live-dot {display: inline-block; width: 6px; height: 6px; background: #71905e; border-radius: 50%; margin-right: 6px;}
+#notice {font-size: 12px; margin-bottom: 15px; white-space: pre-wrap; overflow-wrap: anywhere;}
+#notice:empty {display: none;}
+.success {color: #4f7147;}
+.error,#editor-error,#layout-error {color: #aa4532;}
+#empty {text-align: center; padding: 55px 15px 65px; border: 1px dashed #d3ddcc; border-radius: 12px; background: #f1f4ed;}
+#empty[hidden] {display: none;}
+.empty-icon {font-size: 29px; color: #7f9770;}
+#empty h2 {font-family: Georgia, serif; font-size: 28px; font-weight: 400;}
+#empty p {line-height: 1.8; color: #7e8b76; margin-bottom: 23px;}
+#empty small {display: block; margin-top: 13px; color: #8a9781; font-size: 10px;}
+.widget-grid > .cxd-Container-body {display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px;}
+.widget {background: white; border: 1px solid #e0e5da; border-radius: 11px; padding: 20px; min-width: 0; overflow: hidden;}
+.span-3 {grid-column: span 3;}
+.span-4 {grid-column: span 4;}
+.span-6 {grid-column: span 6;}
+.span-8 {grid-column: span 8;}
+.span-12 {grid-column: span 12;}
+.widget-title {font-size: 13px; margin: 0 0 17px; color: #65765e; font-weight: 500;}
+.metric-value {font-family: Georgia, serif; font-size: 38px; color: #284632; line-height: 1.2;}
+.metric-caption {font-size: 10px; color: #97a18c; margin-top: 8px;}
+#canvas .cxd-Page {background: transparent;}
+#canvas .cxd-Page-body {padding: 0;}
+#canvas .cxd-Panel {border: 0; box-shadow: none; margin-bottom: 0;}
+#canvas .cxd-Panel-body {padding: 0;}
+#canvas .cxd-Crud {font-size: 12px;}
+#canvas .cxd-Table {border: 0;}
+#canvas .cxd-Table-table>thead>tr>th {background: #f7f8f3; color: #7b876f; font-weight: 500; border: 0; font-size: 11px;}
+#canvas .cxd-Table-table>tbody>tr>td {border-bottom: 1px solid #edf0e8; color: #485b41; padding: 13px 10px;}
+#canvas .cxd-Button--primary {background: #395e48; border-color: #395e48;}
+#canvas .cxd-Button {font-size: 11px; border-radius: 5px;}
+#canvas .cxd-Crud-filter {margin-bottom: 10px;}
+#canvas .cxd-Form-item {margin-bottom: 8px;}
+footer {display: flex; justify-content: space-between; gap: 15px; color: #94a087; font-size: 10px; margin-top: 25px; padding-top: 15px; border-top: 1px solid #e1e6da;}
+dialog {width: min(850px, 94vw); max-height: 88vh; padding: 28px; border: 1px solid #d4ddce; border-radius: 14px; color: #354d39; box-shadow: 0 25px 90px #1b2f2540;}
+dialog::backdrop {background: #25392d55; backdrop-filter: blur(3px);}
+.dialog-heading {display: flex; align-items: center; justify-content: space-between;}
+.dialog-heading h2 {margin: 0; font-size: 20px;}
+.close {background: #f0f3eb; color: #526849; font-size: 20px; padding: 4px 11px;}
+dialog p {font-size: 13px; color: #7c8d71;}
+dialog label {display: block; font-size: 12px; margin: 12px 0;}
+dialog select {padding: 8px; border: 1px solid #cfd9c6; border-radius: 5px; max-width: 100%;}
+dialog textarea {width: 100%; padding: 13px; margin-top: 14px; font-family: ui-monospace, monospace; font-size: 12px; border: 1px solid #d3ddc9; border-radius: 6px; resize: vertical; line-height: 1.5;}
+#metadata {height: 46vh;}
+.layout-row {padding: 16px 0; border-bottom: 1px solid #e3e9dc;}
+.layout-row strong {margin-right: 18px;}
+.layout-row button {margin-left: 8px; padding: 6px 12px;}
+.sr-only {position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);}
+@media(max-width: 1100px) {.span-3,.span-4 {grid-column: span 6;}
+.span-6,.span-8 {grid-column: span 12;}
+main {padding: 30px 22px;}}
+@media(max-width: 700px) {.sidebar {position: static; width: auto; padding: 20px;}
+.workspace-label,#workspace-name,.sidebar-footer {display: none;}
+#navigation {display: flex; flex-wrap: wrap; margin-top: 16px;}
+.nav-heading {display: none;}
+nav button {width: auto;}
+main {margin: 0; padding: 24px 16px;}
+h1 {font-size: 27px;}
+.builder-heading {gap: 10px;}
+#prompt-form {flex-direction: column; align-items: stretch;}
+.view-bar {align-items: start; gap: 10px;}
+.view-bar>span {max-width: 40%;}
+.span-3,.span-4 {grid-column: span 12;}
+footer {flex-direction: column;}}
